@@ -6,6 +6,10 @@
 
 @section('content')
     <div class="container">
+        @if (session('message'))
+            <div class="alert alert-success">{{ session('message') }}</div>
+        @endif
+
         <h2 class="text-center">Utilizadores</h2>
         <form method="GET">
             <select class="custom-select" name="user_id" onchange="this.form.submit()">
@@ -16,6 +20,7 @@
                 @endforeach
             </select>
         </form>
+
         <table class="table">
             <thead>
                 <tr>

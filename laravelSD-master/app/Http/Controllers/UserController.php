@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 
 class UserController extends Controller
@@ -92,6 +94,30 @@ class UserController extends Controller
     {
         return view('users.add_user');
     }
+
+    public function createUser(Request $request)
+    {
+
+        $myUser = $request->all();
+
+
+        $request->validate(
+            [
+                'email' => 'required|email|unique:users',
+                'name' => 'required|string',
+                'password' => 'required',
+            ]
+        );
+
+        User::insert([
+            'email' => $request->email,
+            'name' =>  $request->name,
+            'password' => Hash::make($request->password)
+        ]);
+
+        return redirect('home_all_users')->with('message', 'Utilizador adicioonado com sucesso');
+    }
+
     protected function getCesaeInfo()
     {
         $cesaeInfo = [
@@ -103,6 +129,10 @@ class UserController extends Controller
         return $cesaeInfo;
     }
 
+
+
+
+
     protected function getAllTasks()
     {
 
@@ -113,4 +143,43 @@ class UserController extends Controller
 
         return $allTasks;
     }
+
+
+    public function addTask()
+    {
+        $allUsers = DB::table('users')
+        ->get();
+        return view('users.add_task', compact('allUsers'));
+    }
+
+    public function createTask(Request $request)
+    {
+
+        $myUser = $request->all();
+
+        $request->validate(
+            [
+            'user_id' => 'required|unique:users',
+            'task' => 'required|unique:tasks',
+            ]
+        );
+
+        DB::table('tasks')->insert([
+            'user_id' => 'required|unique:users',
+
+            'task' => $request->task,
+        ]);
+
+        return redirect('home_all_tasks')->with('message', 'tarefa adicionada com sucesso');
+    }
+
 }
+
+
+/* DB::table('users')->insert([
+
+    'email' => 'kayla@example.com',
+
+    'votes' => 0
+
+   ]); */
