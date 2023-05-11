@@ -155,31 +155,15 @@ class UserController extends Controller
     public function createTask(Request $request)
     {
 
-        $myUser = $request->all();
-
-        $request->validate(
-            [
-            'user_id' => 'required|unique:users',
-            'task' => 'required|unique:tasks',
-            ]
-        );
+        $myTarefa = $request->all();
 
         DB::table('tasks')->insert([
-            'user_id' => 'required|unique:users',
 
-            'task' => $request->task,
+            'name' => $request->name,
+            'description' => $request->description,
+            'user_id' => $request->user_id,
         ]);
-
         return redirect('home_all_tasks')->with('message', 'tarefa adicionada com sucesso');
     }
 
 }
-
-
-/* DB::table('users')->insert([
-
-    'email' => 'kayla@example.com',
-
-    'votes' => 0
-
-   ]); */
