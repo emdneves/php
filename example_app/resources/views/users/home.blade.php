@@ -1,20 +1,35 @@
 @extends('layouts.main')
 
 @section('title')
-    <title>MAIN LAYOUT</title>
+    <title>Home</title>
 @endsection
 
 @section('content')
-    <h1>HOME PAGE</h1>
-    <ul>
-        <li> <a href="{{ Route('show_all_users') }}">SHOW ALL USERS</a></li>
-        <li> <a href="{{ Route('add_new-user') }}">ADD NEW USER</a></li>
-    </ul>
+    <div class="container">
+        <h1>Olá, estou em casa</h1>
+
+        <ul>
+            <a href="{{ route('show_all_users') }}">
+                <li>Todos os utilizadores</li>
+            </a>
+            <a href="{{ route('show_all_tasks') }}">
+                <li>Todas as Tarefas</li>
+            </a>
+            <a href="{{ route('add_user') }}">
+                <li>Adicionar Utilizador</li>
+            </a>
+            <a href="{{ route('add_task') }}">
+                <li>Adicionar Tarefa</li>
+            </a>
+        </ul>
+    </div>
+
+
+    {{--<h1> Vamos testar as variáveis!</h1>
+    <h4>{{$aMinhaVariavel}}</h4>--}}
 @endsection
 
 
-@section('footer')
-    <footer>
-        footer
-    </footer>
+@section('endcontent')
+    {{-- <h2>sou fim do conteúdo</h2> --}}
 @endsection
