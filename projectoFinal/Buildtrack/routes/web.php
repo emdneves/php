@@ -17,35 +17,30 @@ use Illuminate\Support\Facades\Route;
 /* ------------------------------ROTAS DEFULT------------------------------ */
 Route::redirect('/', '/home');
 
-Route::fallback(function () {
-    return view('fallback');
-});
+Route::fallback(function () {    return view('fallback');});
 
-/* ------------------------------ROTAS CRIADAS------------------------------ */
+/* ------------------------------ROTAS DE COMPONTENTES------------------------------ */
 
 Route::get('/home', [UserController::class, 'index'])->name('home');
 
-Route::get('/home_all_users', [UserController::class, 'all_users'])->name('show_all_users');
 
-Route::get('/home_all_tasks', [UserController::class, 'all_tasks'])->name('show_all_tasks');
+// USERS
+Route::post('/create_user', [UserController::class, 'createUser'])->name('create_user');// rota para adicionar novo user
+Route::get('/delete_user{id}', [UserController::class, 'deleteUser'])->name('delete_user'); // rota para eliminar user
 
-Route::get('/view_task/id={id}', [UserController::class, 'viewTask'])->name('show_task');
+// TAREFAS
+Route::post('/create_task', [UserController::class, 'createTask'])->name('create_task'); // rota para adicionar nova tarefa
+Route::get('/all-tasks', [UserController::class, 'getAllTasks'])->name('all_tasks'); // rota para retornar a tabela com todas as tarefas
+Route::get('/delete_task{id}', [UserController::class, 'deleteTask'])->name('delete_task'); // rota eliminar tarefa
 
-Route::get('/delete_task{id}', [UserController::class, 'deleteTask'])->name('delete_task');
+/* ------------------------------ROTAS DE VIEWS------------------------------ */
 
-Route::get('/view_user/id={id}', [UserController::class, 'viewUser'])->name('show_user');
+// USERS
+Route::get('/home_all_users', [UserController::class, 'all_users'])->name('show_all_users'); // rota que retorna a view para mostrar todos os users
+Route::get('/view_user/id={id}', [UserController::class, 'viewUser'])->name('show_user'); // rota que retorna a view para mostrar user
 
-Route::get('/delete_user{id}', [UserController::class, 'deleteUser'])->name('delete_user');
-
-Route::get('/home_add_user', [UserController::class, 'addUser'])->name('add_user');
-
-Route::post('/create_user', [UserController::class, 'createUser'])->name('create_user');
-
-Route::get('/home_add_task', [UserController::class, 'addTask'])->name('add_task');
-
-Route::post('/create_task', [UserController::class, 'createTask'])->name('create_task');
-
-Route::get('/all-tasks', [UserController::class, 'getAllTasks'])->name('all_tasks');
-
-
-
+// TAREFAS
+Route::get('/view_task/id={id}', [UserController::class, 'viewTask'])->name('show_task'); // rota que retorna a view para mostrar tarefa
+Route::get('/home_add_task', [UserController::class, 'addTask'])->name('add_task'); // rota que retorna a view para adicionar nova tarefa
+Route::get('/home_add_user', [UserController::class, 'addUser'])->name('add_user'); // rota que retorna a view para adicionar nova tarefa
+Route::get('/home_all_tasks', [UserController::class, 'all_tasks'])->name('show_all_tasks'); // rota que retorna a view para mostrar todas as tarefas

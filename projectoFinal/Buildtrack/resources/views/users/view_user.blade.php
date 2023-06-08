@@ -13,8 +13,7 @@
     </div>
 
 
-    {{-- <h1> Vamos testar as variáveis!</h1>
-    <h4>{{$aMinhaVariavel}}</h4> --}}
+
 @endsection
 
 
