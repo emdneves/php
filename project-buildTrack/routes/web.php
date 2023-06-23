@@ -3,6 +3,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BudgetController;
+use App\Http\Providers\FortifyServiceProvider;
+
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -40,8 +42,8 @@ Route::fallback(function () { return view('fallback');});
 Route::get('/home', [UserController::class, 'index'])->name('home');
 
 // USERS
-Route::post('/create_user', [UserController::class, 'createUser'])->name('create_user'); // Rota para adicionar novo usuário
-Route::get('/delete_user{id}', [UserController::class, 'deleteUser'])->name('delete_user'); // Rota para excluir usuário
+Route::post('/create_user', [UserController::class, 'createUser'])->name('create_user')->middleware('auth'); // Rota para adicionar novo usuário
+Route::get('/delete_user{id}', [UserController::class, 'deleteUser'])->name('delete_user')->middleware('auth'); // Rota para excluir usuário
 
 // TAREFAS
 Route::post('/create_task', [TasksController::class, 'storeTask'])->name('store_task'); // Rota para adicionar nova tarefa
@@ -62,7 +64,6 @@ Route::get('/home_all_tasks', [TasksController::class, 'show_all_tasks'])->name(
 
 /* ------------------------------ AUTENTICAÇÃO ------------------------------ */
 
-Auth::routes();
 
 // Conta
 Route::get('/account', [UserController::class, 'account'])->name('account')->middleware('auth');

@@ -32,12 +32,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
-                    </li>
+
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('show_all_tasks') }}">EXPLORE</a>
+                        <a class="nav-link" href="{{ route('show_all_tasks') }}">ITEMS</a>
                     </li>
 
                     <li class="nav-item">
@@ -45,72 +43,55 @@
                     </li>
 
                     {{--  --------------------ITEMS NAVBAR PARA ADMINISTRADOR-------------------- --}}
-
-                    {{--                     <li class="nav-item">
-                        @if (session('status'))
-                        <a class="nav-link" href="{{ route('show_all_users') }}">MANAGE USERS</a>
-                        {{ session('status') }}
-                        @endif
-                    </li>
-                    <li class="nav-item">
-                        @if (session('status'))
-                        <a class="nav-link" href="{{ route('add_user') }}">NEW USER</a>
-                        {{ session('status') }}
-                        @endif
-                    </li> --}}
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('show_all_users') }}">MANAGE USERS</a>
-                    </li>
+                    @auth
+                    @if (auth()->user()->user_type == 1)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('show_all_users') }}">MANAGE USERS</a>
+                        </li>
+                    @endif
+                @endauth
 
 
                     {{--  --------------------ITEMS NAVBAR PARA USER AUTENTICADO-------------------- --}}
 
 
-                    {{--                    <li class="nav-item">
-                        @if (session('status'))
-                        <a class="nav-link" href="{{ route('add_task') }}">NEW ITEM</a>
-                        {{ session('status') }}
-                        @endif
-                    </li> --}}
-
+                    @auth
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('add_task') }}">NEW ITEM</a>
                     </li>
+                @endauth
                 </ul>
 
 
-                    {{-- --------------------SISTEMA DE SIGN UP / SIGN IN-------------------- --}}´
+                {{-- --------------------SISTEMA DE SIGN UP / SIGN IN-------------------- --}}´
 
-                    <ul>
+                <ul class="navbar-nav ml-auto">
+                    @auth
+                        <li class="nav-item"><a class="nav-link"href="/">HOME</a>
+                        </li>
+                    @endauth
+                    @if (Route::has('login'))
                         @auth
-                        <li class="nav-item"><a class="nav-link"href="/">Home</a></li>
+                        <li class="nav-item">
+                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                @csrf
+                                <a href="#" class="nav-link" onclick="event.preventDefault(); this.closest('form').submit();">LOGOUT</a>
+                            </form>
+                        </li>
+                        @else
+                            <li class="nav-item" id="authLinks">
+                                <a class="nav-link" href="/registar">SIGN UP</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">SIGN IN</a>
+                            </li>
                         @endauth
-                        @if (Route::has('login'))
-                            @auth
-                            <li class="nav-item">
-                                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-link text-white">Logout</button>
-                                    </form>
-                                </li>
-                            @else
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="/registar">Registar</a>
-                            </li>
-
-
-                            </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
-                                </li>
-                            @endauth
-                        @endif
-                    </ul>
-</div>
-</div>
-</nav>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <h1> {{-- Início Ficheiro --}}
     </h1>

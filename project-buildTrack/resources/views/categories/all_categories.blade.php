@@ -1,4 +1,4 @@
-use Illuminate\Support\Facades\Auth;
+
 @extends('layouts.main')
 
 @section('title')
@@ -20,10 +20,15 @@ use Illuminate\Support\Facades\Auth;
         <h2 class="text-center">CATEGORIES</h2>
 
 
-{{--         @if (Auth::user()->user_type == User::admin) --}}
- <a href="{{ route('add_category') }}" class="btn btn-primary mb-3">Add Category</a>
- 
-{{-- @endif --}}
+
+        @auth
+        @if (auth()->user()->user_type == 1)
+            <ul class="nav-item">
+                <a href="{{ route('add_category') }}" class="btn btn-primary mb-3">ADD CATEGORY</a>
+            </ul>
+        @endif
+    @endauth
+
 
         <table class="table">
             <thead>
@@ -33,7 +38,11 @@ use Illuminate\Support\Facades\Auth;
                     <th scope="col">IMAGE</th>
                     <th scope="col">CREATED AT</th>
                     <th scope="col">UPDATED AT</th>
+                    @auth
+                    @if (auth()->user()->user_type == 1)
                     <th scope="col">ACTIONS</th>
+                    @endif
+                    @endauth
                 </tr>
             </thead>
             <tbody>
@@ -42,17 +51,14 @@ use Illuminate\Support\Facades\Auth;
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
                         <td>
-                            @if ($category->image)
-                            <img src="{{ asset('storage/category_images/' . $category->image) }}" alt="Category Image" width="100">
-                            {{--     src="{{ $item->foto ? asset('uploadFotos/' . $item->foto) : asset('images/nophoto.jpg') }}"  --}}
-                            {{-- <img src="{{asset('images/expense.png')}}" alt="Image" class="img-fluid" style="max-width: 150px; max-height: 150px;"> MEU NA HOME --}}
-
-                            @else
-                            <img src="{{ asset('images/nophoto.png') }}" alt="Default Image" width="50">
-                        @endif
+                            <img width="30px" height="30px" src="{{ $category->image ? asset('storage/images/' . $category->image) : asset('images/nophoto.png') }}" alt="{{ $category->image ? 'Category Image' : 'Default Image' }}">
                         </td>
                         <td>{{ $category->created_at }}</td>
                         <td>{{ $category->updated_at }}</td>
+
+
+                        @auth
+                        @if (auth()->user()->user_type == 1)
                         <td>
                             <a href="{{ route('edit_category', ['id' => $category->id]) }}" class="btn btn-primary">Edit</a>
                             <form action="{{ route('delete_category', ['id' => $category->id]) }}" method="POST" style="display: inline">
@@ -61,6 +67,8 @@ use Illuminate\Support\Facades\Auth;
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
+                        @endif
+                        @endauth
                     </tr>
                 @endforeach
             </tbody>

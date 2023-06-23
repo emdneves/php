@@ -9,17 +9,20 @@
         <h2 class="text-center">Tasks</h2>
 
         <!-- Add Budget Form -->
-        <form action="{{ route('store_budget') }}" method="POST" class="mb-3">
-            @csrf
-            <div class="input-group">
-                <input type="text" class="form-control" name="name" placeholder="New Budget Name" required>
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary">Create</button>
-                </div>
-            </div>
-        </form>
 
+        @auth
+
+        <form action="{{ route('store_budget') }}" method="POST">
+            @csrf
+            <div class="form-group">
+              <label for="name">Budget Name</label>
+              <input type="text" name="name" id="name" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Create Budget</button>
+          </form>
         <a href="{{ route('add_task') }}" class="btn btn-primary mb-3">Add Task</a>
+        @endauth
+
 
         <!-- Task Table -->
         <table class="table">

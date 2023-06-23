@@ -16,3 +16,71 @@
 #quantity-input {
     width: 40px;
 }
+
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+
+body {
+	width: 100%;
+	height:100%;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+
+
+}
+
+
+.login {
+	position: center;
+	top: 50%;
+	left: 50%;
+	margin: -150px 0 0 -150px;
+    border: 1px solid #7d0b18;
+
+}
+
+.btnLogin {
+    background-color: green;
+    color: white;
+    text-align: center;
+  }
+
+
+.btn-dark{
+    --bs-btn-bg: darkred;
+    display: inline-block;
+    margin-right: 12px;
+}
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+
+.title {
+    text-align: center;
+    margin-top: 30px;
+    color: darkred;
+}
+.navbar-brand{
+    color: darkred;
+}
+.tabela{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.card-img-top {
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}

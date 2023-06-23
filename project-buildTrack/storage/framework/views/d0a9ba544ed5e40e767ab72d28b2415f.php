@@ -32,12 +32,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?php echo e(route('home')); ?>">Home</a>
-                    </li>
+
 
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo e(route('show_all_tasks')); ?>">EXPLORE</a>
+                        <a class="nav-link" href="<?php echo e(route('show_all_tasks')); ?>">ITEMS</a>
                     </li>
 
                     <li class="nav-item">
@@ -45,56 +43,55 @@
                     </li>
 
                     
-
-                    
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo e(route('show_all_users')); ?>">MANAGE USERS</a>
-                    </li>
-
-
-                    
+                    <?php if(auth()->guard()->check()): ?>
+                    <?php if(auth()->user()->user_type == 1): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo e(route('show_all_users')); ?>">MANAGE USERS</a>
+                        </li>
+                    <?php endif; ?>
+                <?php endif; ?>
 
 
                     
 
+
+                    <?php if(auth()->guard()->check()): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(route('add_task')); ?>">NEW ITEM</a>
                     </li>
+                <?php endif; ?>
                 </ul>
 
 
-                    ´
+                ´
 
-                    <ul>
+                <ul class="navbar-nav ml-auto">
+                    <?php if(auth()->guard()->check()): ?>
+                        <li class="nav-item"><a class="nav-link"href="/">HOME</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if(Route::has('login')): ?>
                         <?php if(auth()->guard()->check()): ?>
-                        <li class="nav-item"><a class="nav-link"href="/">Home</a></li>
-                        <?php endif; ?>
-                        <?php if(Route::has('login')): ?>
-                            <?php if(auth()->guard()->check()): ?>
-                            <li class="nav-item">
-                                    <form action="<?php echo e(route('logout')); ?>" method="POST" class="d-inline">
-                                        <?php echo csrf_field(); ?>
-                                        <button type="submit" class="btn btn-link text-white">Logout</button>
-                                    </form>
-                                </li>
-                            <?php else: ?>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="/registar">Registar</a>
+                        <li class="nav-item">
+                            <form action="<?php echo e(route('logout')); ?>" method="POST" class="d-inline">
+                                <?php echo csrf_field(); ?>
+                                <a href="#" class="nav-link" onclick="event.preventDefault(); this.closest('form').submit();">LOGOUT</a>
+                            </form>
+                        </li>
+                        <?php else: ?>
+                            <li class="nav-item" id="authLinks">
+                                <a class="nav-link" href="/registar">SIGN UP</a>
                             </li>
 
-
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo e(route('login')); ?>">SIGN IN</a>
                             </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="<?php echo e(route('login')); ?>">Login</a>
-                                </li>
-                            <?php endif; ?>
                         <?php endif; ?>
-                    </ul>
-</div>
-</div>
-</nav>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <h1> 
     </h1>

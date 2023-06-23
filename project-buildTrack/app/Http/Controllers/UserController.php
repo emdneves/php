@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Budget;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -182,6 +183,12 @@ public function editUserPermissions($id)
     $user->save();
 
     return redirect()->back()->with('message', 'User permissions updated successfully.');
+}
+
+
+public function budgets(): HasMany
+{
+    return $this->hasMany(Budget::class);
 }
 
 }

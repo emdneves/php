@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Budget;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class BudgetController extends Controller
 {
@@ -15,18 +17,22 @@ class BudgetController extends Controller
         return view('budgets.new_budget');
     }
 
+
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
+        $user = Auth::user(); // Retrieve the authenticated user
+
         $budget = new Budget();
         $budget->name = $request->name;
+        $budget->user_id = $user->id;
 
         $budget->save();
 
-        return redirect()->route('show_all_tasks')->with('message', 'Budget created successfully.');
+        return redirect()->route('new_budget', ['budget' => $budget])->with('message', 'Budget created successfully.');
     }
 
     /* ----------ADICIONAR TAREFA AO ORÇAMENTO---------- */

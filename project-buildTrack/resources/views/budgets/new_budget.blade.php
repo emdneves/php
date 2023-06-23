@@ -33,27 +33,24 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">CATEGORIA</th>
-                    <th scope="col">NOME</th>
-                    <th scope="col">TIPO</th>
-                    <th scope="col">UN</th>
-                    <th scope="col">€ / UN</th>
-                    <th scope="col">QT</th>
+                    <th scope="col">CATEGORY</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">TYPE</th>
+                    <th scope="col">UNIT</th>
+                    <th scope="col">€ / UNIT</th>
+                    <th scope="col">QUANTITY</th>
                     <th scope="col">ACTIONS</th>
                     <th scope="col">ADDED</th>
-
                 </tr>
             </thead>
             <tbody>
-                @foreach ($allTasks as $task)
+                @forelse ($allTasks as $task)
                     <tr>
                         <td>{{ $task->category_name }}</td>
                         <td>{{ $task->article }}</td>
                         <td>{{ $task->type }}</td>
                         <td>{{ $task->measure }}</td>
                         <td>{{ $task->cost }} €</td>
-                        // THE QUANTITY IN THE CURENT BUDGET
-
                         <td>
                             <div class="input-group">
                                 <form action="{{ route('add_task_to_budget') }}" method="POST">
@@ -74,7 +71,11 @@
                             </div>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="8" class="text-center">No tasks found.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

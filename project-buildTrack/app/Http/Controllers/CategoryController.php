@@ -20,7 +20,7 @@ class CategoryController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imagePath = $image->store('category_images', 'public');
+            $imagePath = $image->store('images', 'public');
         }
 
         $category = new Category();
