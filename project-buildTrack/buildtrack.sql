@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Jun-2023 às 14:49
+-- Tempo de geração: 23-Jun-2023 às 17:02
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -34,6 +34,19 @@ CREATE TABLE `budgets` (
   `name` varchar(60) DEFAULT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `budgets`
+--
+
+INSERT INTO `budgets` (`id`, `created_at`, `updated_at`, `name`, `user_id`) VALUES
+(1, '2023-06-23 13:34:19', '2023-06-23 13:34:19', 'teste', 5),
+(2, '2023-06-23 13:36:50', '2023-06-23 13:36:50', 'teste2', 5),
+(3, '2023-06-23 13:37:43', '2023-06-23 13:37:43', 'teste2', 5),
+(4, '2023-06-23 13:39:42', '2023-06-23 13:39:42', 'teste2', 5),
+(5, '2023-06-23 13:40:26', '2023-06-23 13:40:26', 'teste2', 5),
+(6, '2023-06-23 13:45:53', '2023-06-23 13:45:53', 'teste2', 5),
+(7, '2023-06-23 13:57:21', '2023-06-23 13:57:21', 'teste', 5);
 
 -- --------------------------------------------------------
 
@@ -69,11 +82,13 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`, `image`) VALUES
-(9, 'impermeabilização', NULL, NULL, NULL),
-(10, 'isolamento', NULL, NULL, NULL),
-(11, 'vidro', NULL, NULL, NULL),
-(12, 'carpintaria', NULL, NULL, NULL),
-(13, 'serralharia', NULL, NULL, NULL);
+(19, 'carpintaria', '2023-06-23 12:36:33', '2023-06-23 12:36:33', 'category_images/xz4Qiemkx7J0R9ta7ne1PCIufltdoOiyHQbRNij5.png'),
+(20, 'serralharia', '2023-06-23 12:36:49', '2023-06-23 12:36:49', 'category_images/VUQijDLK67nEesfZ3cbp11WSHKhzanuCrOOhggJ5.png'),
+(21, 'reboco', '2023-06-23 12:37:00', '2023-06-23 12:37:00', 'category_images/Nbf004Qk36g457Lx0rOxEVKYfBBLTMar1nDGmQxI.png'),
+(22, 'vidro', '2023-06-23 12:37:09', '2023-06-23 12:37:09', 'category_images/wfqLBg4K1KiieSmlnNS9d0dtQdLUAhnB1eiCu3fI.png'),
+(23, 'isolamento', '2023-06-23 12:37:20', '2023-06-23 12:37:20', 'category_images/xKedtyJpWpN6enq5LOnhF8pvPIymsR5gDW9FA1Qp.png'),
+(24, 'impermeabilização', '2023-06-23 12:37:40', '2023-06-23 12:37:40', 'category_images/8mg4IRWdnDZjVxpnVqsPEYiv5Q5senpH5IdAis54.png'),
+(25, 'pintura', '2023-06-23 12:50:34', '2023-06-23 12:50:34', 'images/lo0TynhubA6ca3PZnLrCg1qwTC1j6LLFHT9xp0J2.png');
 
 -- --------------------------------------------------------
 
@@ -191,7 +206,9 @@ INSERT INTO `tasks` (`id`, `category_id`, `article`, `measure`, `type`, `cost`, 
 (1, 9, 'tinta', 'm2', 'fornecimento', 50.00, '2023-06-16 19:28:35', '2023-06-16 19:28:35', NULL, NULL),
 (2, 11, 'vidro', 'm2', 'fornecimento', 21.00, '2023-06-16 19:30:00', '2023-06-16 19:30:00', NULL, NULL),
 (3, 9, 'teste de item com uma descrição longa pa crl', 'm2', 'm2', 100.00, '2023-06-21 19:13:29', '2023-06-21 19:13:29', NULL, NULL),
-(4, 10, 'teste de item com uma descrição ainda mais longa que a outra que era longa pa crl', 'm2', 'montagem', 100.00, '2023-06-21 19:14:48', '2023-06-21 19:14:48', NULL, NULL);
+(4, 10, 'teste de item com uma descrição ainda mais longa que a outra que era longa pa crl', 'm2', 'montagem', 100.00, '2023-06-21 19:14:48', '2023-06-21 19:14:48', NULL, NULL),
+(5, 19, 'soalho pinho 20mm', 'm2', 'fornecimento e montagem', 58.00, '2023-06-23 13:18:58', '2023-06-23 13:18:58', NULL, NULL),
+(6, 20, 'vão fixo alumínio  cor60 Cortizo vidro duplo 2700x2500', 'un', 'fornecimento e montagem', 980.00, '2023-06-23 13:20:46', '2023-06-23 13:20:46', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -304,7 +321,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de tabela `budgets`
 --
 ALTER TABLE `budgets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `budget_tasks`
@@ -316,7 +333,7 @@ ALTER TABLE `budget_tasks`
 -- AUTO_INCREMENT de tabela `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de tabela `database_structure`
@@ -346,7 +363,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de tabela `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `users`
