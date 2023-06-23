@@ -10,7 +10,7 @@
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?php echo e(asset('css/styles.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
 
 
 
@@ -51,9 +51,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo e(route('show_all_users')); ?>">MANAGE USERS</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo e(route('add_user')); ?>">NEW USER</a>
-                    </li>
+
 
                     
 
@@ -64,34 +62,36 @@
                         <a class="nav-link" href="<?php echo e(route('add_task')); ?>">NEW ITEM</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
-
 
 
                     ´
 
-<li class="nav-item">
-    <?php if(session('status')): ?>
-        <a class="nav-link" href="<?php echo e(route('login')); ?>">SIGN IN</a>
-        <?php echo e(session('status')); ?>
+                    <ul>
+                        <?php if(auth()->guard()->check()): ?>
+                        <li class="nav-item"><a class="nav-link"href="/">Home</a></li>
+                        <?php endif; ?>
+                        <?php if(Route::has('login')): ?>
+                            <?php if(auth()->guard()->check()): ?>
+                            <li class="nav-item">
+                                    <form action="<?php echo e(route('logout')); ?>" method="POST" class="d-inline">
+                                        <?php echo csrf_field(); ?>
+                                        <button type="submit" class="btn btn-link text-white">Logout</button>
+                                    </form>
+                                </li>
+                            <?php else: ?>
 
-    <?php else: ?>
-        <a class="nav-link" href="<?php echo e(route('account')); ?>">ACCOUNT</a>
-    @ <?php endif; ?>
-</li>
-<li class="nav-item">
-    <?php if(session('status')): ?>
-        <a class="nav-link" href="<?php echo e(route('register')); ?>">SIGN UP</a>
-        <?php echo e(session('status')); ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/registar">Registar</a>
+                            </li>
 
-    <?php else: ?>
-        <form action="<?php echo e(route('logout')); ?>" method="POST">
-            <?php echo csrf_field(); ?>
-            <button class="nav-link" type="submit">LOGOUT</button>
-        </form>
-    <?php endif; ?>
-</li>
-</ul>
+
+                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo e(route('login')); ?>">Login</a>
+                                </li>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </ul>
 </div>
 </div>
 </nav>

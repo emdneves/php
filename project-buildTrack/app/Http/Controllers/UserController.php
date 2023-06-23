@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Budget;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -89,7 +90,7 @@ public function getAllUsersInfo()
                 ]
             );
 
-        return redirect('home_all_users')->with('message', 'Utilizador editado com sucesso');
+        return redirect('home_all_users')->with('message', 'edited user successfully');
     }
 
 
@@ -106,10 +107,15 @@ public function deleteUser($id)
 
 /* ----------MOSTRAR VIEW PARA ADICIONAR USER---------- */
 
-    public function addUser()
-    {
-        return view('users.add_user');
-    }
+public function addUser()
+{
+    return view('auth.register');
+}
+
+public function loginUser()
+{
+    return view('auth.login');
+}
 
 
 /* ----------ADICIONAR USER---------- */
@@ -134,7 +140,7 @@ public function deleteUser($id)
             'password' => Hash::make($request->password)
         ]);
 
-        return redirect('home_all_users')->with('message', 'Utilizador adicioonado com sucesso');
+        return redirect('home_all_users')->with('message', 'user added successsfully');
     }
 
 /* ----------RESET PASSWORD---------- */
@@ -152,4 +158,30 @@ public function deleteUser($id)
         ->with('status', 'You have been logged out successfully.')
         ->with('alert-type', 'success');
 }
+
+
+/* ----------SHOW BUDGETS OF AN USER---------- */
+
+public function userBudgets($id)
+{
+    $user = User::find($id);
+    $budgets = $user->budgets;
+
+    return view('user_budgets', ['user' => $user, 'budgets' => $budgets]);
+}
+
+
+/* ----------EDIT USER PERMISSIONS---------- */
+
+public function editUserPermissions($id)
+{
+    $user = User::find($id);
+
+    // Update the user type to the opposite value
+    $user->user_type = $user->user_type == 0 ? 1 : 0;
+    $user->save();
+
+    return redirect()->back()->with('message', 'User permissions updated successfully.');
+}
+
 }

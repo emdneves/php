@@ -10,7 +10,7 @@
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 
 
@@ -62,9 +62,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('show_all_users') }}">MANAGE USERS</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('add_user') }}">NEW USER</a>
-                    </li>
+
 
                     {{--  --------------------ITEMS NAVBAR PARA USER AUTENTICADO-------------------- --}}
 
@@ -80,32 +78,36 @@
                         <a class="nav-link" href="{{ route('add_task') }}">NEW ITEM</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
-
 
 
                     {{-- --------------------SISTEMA DE SIGN UP / SIGN IN-------------------- --}}´
 
-<li class="nav-item">
-    @if (session('status'))
-        <a class="nav-link" href="{{ route('login') }}">SIGN IN</a>
-        {{ session('status') }}
-    @else
-        <a class="nav-link" href="{{ route('account') }}">ACCOUNT</a>
-    @ @endif
-</li>
-<li class="nav-item">
-    @if (session('status'))
-        <a class="nav-link" href="{{ route('register') }}">SIGN UP</a>
-        {{ session('status') }}
-    @else
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button class="nav-link" type="submit">LOGOUT</button>
-        </form>
-    @endif
-</li>
-</ul>
+                    <ul>
+                        @auth
+                        <li class="nav-item"><a class="nav-link"href="/">Home</a></li>
+                        @endauth
+                        @if (Route::has('login'))
+                            @auth
+                            <li class="nav-item">
+                                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-link text-white">Logout</button>
+                                    </form>
+                                </li>
+                            @else
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/registar">Registar</a>
+                            </li>
+
+
+                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                                </li>
+                            @endauth
+                        @endif
+                    </ul>
 </div>
 </div>
 </nav>

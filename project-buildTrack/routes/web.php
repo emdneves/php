@@ -2,8 +2,11 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BudgetController;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -17,13 +20,20 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Route::get('/login', function () {return view('auth.login');})->name('login');
+
+Route::get('/register', function () {return view('auth.register');})->name('register');;
+
+Route::get('/',[HomeController::class, 'index'])->name('home');
+
+// Logout
+Route::post('/logout', [UserController::class, 'logout'])->name('logout')->middleware('auth');
+
 /* ------------------------------ ROTAS DEFAULT ------------------------------ */
 
 Route::redirect('/', '/home');
 
-Route::fallback(function () {
-    return view('fallback');
-});
+Route::fallback(function () { return view('fallback');});
 
 /* ------------------------------ ROTAS DE COMPONENTES ------------------------------ */
 
@@ -43,7 +53,7 @@ Route::get('/delete_task{id}', [TasksController::class, 'deleteTask'])->name('de
 // USERS
 Route::get('/home_all_users', [UserController::class, 'all_users'])->name('show_all_users'); // Rota que retorna a view para mostrar todos os usuários
 Route::get('/view_user/id={id}', [UserController::class, 'viewUser'])->name('show_user'); // Rota que retorna a view para mostrar usuário
-Route::get('/home_add_user', [UserController::class, 'addUser'])->name('add_user'); // Rota que retorna a view para adicionar novo usuário
+Route::get('/registar', [UserController::class, 'addUser'])->name('add_user'); // Rota que retorna a view para adicionar novo usuário
 
 // TAREFAS
 Route::get('/view_task/id={id}', [TasksController::class, 'viewTask'])->name('show_task'); // Rota que retorna a view para mostrar tarefa
@@ -57,8 +67,6 @@ Auth::routes();
 // Conta
 Route::get('/account', [UserController::class, 'account'])->name('account')->middleware('auth');
 
-// Logout
-Route::post('/logout', [UserController::class, 'logout'])->name('logout')->middleware('auth');
 
 // Redefinir senha
 Route::get('/reset-pass', [UserController::class, 'resetPass'])->name('reset-pass');
@@ -87,4 +95,22 @@ Route::get('/edit-category/{id}', [CategoryController::class, 'editCategory'])->
 
 Route::put('/update-category/{id}', [CategoryController::class, 'updateCategory'])->name('update_category');
 Route::delete('/delete-category/{id}', [CategoryController::class, 'deleteCategory'])->name('delete_category');
+
+// ORÇAMENTOS
+Route::get('/new-budget', function () { return view('budgets.new_budget'); })->name('new_budget'); // Rota que retorna a view new_budget.blade.php
+
+Route::post('/budgets', [BudgetController::class, 'store'])->name('store_budget');
+
+// Display list of budgets for a user
+Route::get('/user/{id}/budgets', [UserController::class, 'userBudgets'])->name('user_budgets');
+
+// View budget details
+Route::get('/budget/{id}', [BudgetController::class, 'viewBudget'])->name('view_budget');
+
+// edit user permissions
+
+Route::get('/user/{id}/edit', [UserController::class, 'editUserPermissions'])->name('edit_user');
+
+
+
 

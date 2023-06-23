@@ -1,3 +1,4 @@
+use Illuminate\Support\Facades\Auth;
 @extends('layouts.main')
 
 @section('title')
@@ -18,8 +19,11 @@
 
         <h2 class="text-center">CATEGORIES</h2>
 
-        <a href="{{ route('add_category') }}" class="btn btn-primary mb-3">Add Category</a>
 
+{{--         @if (Auth::user()->user_type == User::admin) --}}
+ <a href="{{ route('add_category') }}" class="btn btn-primary mb-3">Add Category</a>
+ 
+{{-- @endif --}}
 
         <table class="table">
             <thead>
@@ -40,12 +44,8 @@
                         <td>
                             @if ($category->image)
                             <img src="{{ asset('storage/category_images/' . $category->image) }}" alt="Category Image" width="100">
-                            dd('<img src="' . asset('storage/category_images/' . $category->image) . '" alt="Category Image" width="100">');
-
-
-                            {{--     src="{{ $item->foto ? asset('uploadFotos/' . $item->foto) : asset('images/nophoto.jpg') }}"   LINK ANGELO PARA AS FOTOS --}}
+                            {{--     src="{{ $item->foto ? asset('uploadFotos/' . $item->foto) : asset('images/nophoto.jpg') }}"  --}}
                             {{-- <img src="{{asset('images/expense.png')}}" alt="Image" class="img-fluid" style="max-width: 150px; max-height: 150px;"> MEU NA HOME --}}
-
 
                             @else
                             <img src="{{ asset('images/nophoto.png') }}" alt="Default Image" width="50">

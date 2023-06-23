@@ -83,6 +83,8 @@ class TasksController extends Controller
 
         $task->save();
 
-        return redirect()->route('show_all_tasks')->with('message', 'Tarefa adicionada com sucesso');
+        return redirect()->route('show_all_tasks')->with('message', 'added task successfully');
     }
 }
+
+

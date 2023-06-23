@@ -11,15 +11,7 @@
         @endif
 
         <h2 class="text-center">USERS</h2>
-        <form method="GET">
-            <select class="custom-select" name="user_id" onchange="this.form.submit()">
-                <option value="" selected>all contacts</option>
-                @foreach ($allUsers as $item)
-                    <option @if ($item->id == request()->query('user_id')) selected @endif value="{{ $item->id }}">
-                        {{ $item->name }}</option>
-                @endforeach
-            </select>
-        </form>
+        git
 
         <table class="table">
             <thead>
@@ -28,6 +20,7 @@
                     <th scope="col">name</th>
                     <th scope="col">password</th>
                     <th scope="col">email</th>
+                    <th scope="col">type</th>
                     <th></th>
                 </tr>
             </thead>
@@ -39,7 +32,14 @@
                         <td>{{ $item->password }}</td>
                         <td>{{ $item->email }}</td>
                         <td>
-                            <a href="{{ route('show_user', $item->id) }}"><button class="btn btn-info">watch</button></a>
+                            @if ($item->user_type == 0)
+                                user
+                            @elseif ($item->user_type == 1)
+                                admin
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('edit_user', $item->id) }}"><button class="btn btn-info">CHANGE</button></a>
                             <a href="{{ route('delete_user', $item->id) }}"><button
                                     class="btn btn-danger">delete</button></a>
                         </td>

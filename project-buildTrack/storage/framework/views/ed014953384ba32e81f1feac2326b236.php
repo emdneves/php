@@ -9,15 +9,7 @@
         <?php endif; ?>
 
         <h2 class="text-center">USERS</h2>
-        <form method="GET">
-            <select class="custom-select" name="user_id" onchange="this.form.submit()">
-                <option value="" selected>all contacts</option>
-                <?php $__currentLoopData = $allUsers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <option <?php if($item->id == request()->query('user_id')): ?> selected <?php endif; ?> value="<?php echo e($item->id); ?>">
-                        <?php echo e($item->name); ?></option>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </select>
-        </form>
+        
 
         <table class="table">
             <thead>
@@ -26,6 +18,7 @@
                     <th scope="col">name</th>
                     <th scope="col">password</th>
                     <th scope="col">email</th>
+                    <th scope="col">type</th>
                     <th></th>
                 </tr>
             </thead>
@@ -37,7 +30,14 @@
                         <td><?php echo e($item->password); ?></td>
                         <td><?php echo e($item->email); ?></td>
                         <td>
-                            <a href="<?php echo e(route('show_user', $item->id)); ?>"><button class="btn btn-info">watch</button></a>
+                            <?php if($item->user_type == 0): ?>
+                                user
+                            <?php elseif($item->user_type == 1): ?>
+                                admin
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="<?php echo e(route('edit_user', $item->id)); ?>"><button class="btn btn-info">CHANGE</button></a>
                             <a href="<?php echo e(route('delete_user', $item->id)); ?>"><button
                                     class="btn btn-danger">delete</button></a>
                         </td>

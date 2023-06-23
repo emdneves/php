@@ -46,4 +46,12 @@ class Task extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    /**
+     * Get the budgets associated with the task.
+     */
+    public function budgets()
+    {
+        return $this->belongsToMany(Budget::class)->withPivot('quantity');
+    }
 }
